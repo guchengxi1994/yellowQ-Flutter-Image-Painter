@@ -17,58 +17,62 @@ import 'widgets/_text_dialog.dart';
 
 export '_image_painter.dart';
 
+typedef ControlsBuilder = Widget Function(Widget);
+
 ///[ImagePainter] widget.
 @immutable
 class ImagePainter extends StatefulWidget {
-  const ImagePainter._({
-    Key? key,
-    this.assetPath,
-    this.networkUrl,
-    this.byteArray,
-    this.file,
-    this.height,
-    this.width,
-    this.placeHolder,
-    this.isScalable,
-    this.brushIcon,
-    this.clearAllIcon,
-    this.colorIcon,
-    this.undoIcon,
-    this.isSignature = false,
-    this.controlsAtTop = true,
-    this.signatureBackgroundColor = Colors.white,
-    this.colors,
-    this.initialPaintMode,
-    this.initialStrokeWidth,
-    this.initialColor,
-    this.onColorChanged,
-    this.onStrokeWidthChanged,
-    this.onPaintModeChanged,
-    this.textDelegate,
-  }) : super(key: key);
+  const ImagePainter._(
+      {Key? key,
+      this.assetPath,
+      this.networkUrl,
+      this.byteArray,
+      this.file,
+      this.height,
+      this.width,
+      this.placeHolder,
+      this.isScalable,
+      this.brushIcon,
+      this.clearAllIcon,
+      this.colorIcon,
+      this.undoIcon,
+      this.isSignature = false,
+      this.controlsAtTop = true,
+      this.signatureBackgroundColor = Colors.white,
+      this.colors,
+      this.initialPaintMode,
+      this.initialStrokeWidth,
+      this.initialColor,
+      this.onColorChanged,
+      this.onStrokeWidthChanged,
+      this.onPaintModeChanged,
+      this.textDelegate,
+      this.controlsBuilder,
+      this.actions = const []})
+      : super(key: key);
 
   ///Constructor for loading image from network url.
-  factory ImagePainter.network(
-    String url, {
-    required Key key,
-    double? height,
-    double? width,
-    Widget? placeholderWidget,
-    bool? scalable,
-    List<Color>? colors,
-    Widget? brushIcon,
-    Widget? undoIcon,
-    Widget? clearAllIcon,
-    Widget? colorIcon,
-    PaintMode? initialPaintMode,
-    double? initialStrokeWidth,
-    Color? initialColor,
-    ValueChanged<PaintMode>? onPaintModeChanged,
-    ValueChanged<Color>? onColorChanged,
-    ValueChanged<double>? onStrokeWidthChanged,
-    TextDelegate? textDelegate,
-    bool? controlsAtTop,
-  }) {
+  factory ImagePainter.network(String url,
+      {required Key key,
+      double? height,
+      double? width,
+      Widget? placeholderWidget,
+      bool? scalable,
+      List<Color>? colors,
+      Widget? brushIcon,
+      Widget? undoIcon,
+      Widget? clearAllIcon,
+      Widget? colorIcon,
+      PaintMode? initialPaintMode,
+      double? initialStrokeWidth,
+      Color? initialColor,
+      ValueChanged<PaintMode>? onPaintModeChanged,
+      ValueChanged<Color>? onColorChanged,
+      ValueChanged<double>? onStrokeWidthChanged,
+      TextDelegate? textDelegate,
+      bool? controlsAtTop,
+      ControlsBuilder? controlsBuilder,
+      List<Widget> actions = const []}) {
     return ImagePainter._(
       key: key,
       networkUrl: url,
@@ -89,31 +93,33 @@ class ImagePainter extends StatefulWidget {
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
       controlsAtTop: controlsAtTop ?? true,
+      controlsBuilder: controlsBuilder,
+      actions: actions,
     );
   }
 
   ///Constructor for loading image from assetPath.
-  factory ImagePainter.asset(
-    String path, {
-    required Key key,
-    double? height,
-    double? width,
-    bool? scalable,
-    Widget? placeholderWidget,
-    List<Color>? colors,
-    Widget? brushIcon,
-    Widget? undoIcon,
-    Widget? clearAllIcon,
-    Widget? colorIcon,
-    PaintMode? initialPaintMode,
-    double? initialStrokeWidth,
-    Color? initialColor,
-    ValueChanged<PaintMode>? onPaintModeChanged,
-    ValueChanged<Color>? onColorChanged,
-    ValueChanged<double>? onStrokeWidthChanged,
-    TextDelegate? textDelegate,
-    bool? controlsAtTop,
-  }) {
+  factory ImagePainter.asset(String path,
+      {required Key key,
+      double? height,
+      double? width,
+      bool? scalable,
+      Widget? placeholderWidget,
+      List<Color>? colors,
+      Widget? brushIcon,
+      Widget? undoIcon,
+      Widget? clearAllIcon,
+      Widget? colorIcon,
+      PaintMode? initialPaintMode,
+      double? initialStrokeWidth,
+      Color? initialColor,
+      ValueChanged<PaintMode>? onPaintModeChanged,
+      ValueChanged<Color>? onColorChanged,
+      ValueChanged<double>? onStrokeWidthChanged,
+      TextDelegate? textDelegate,
+      bool? controlsAtTop,
+      ControlsBuilder? controlsBuilder,
+      List<Widget> actions = const []}) {
     return ImagePainter._(
       key: key,
       assetPath: path,
@@ -134,31 +140,33 @@ class ImagePainter extends StatefulWidget {
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
       controlsAtTop: controlsAtTop ?? true,
+      controlsBuilder: controlsBuilder,
+      actions: actions,
     );
   }
 
   ///Constructor for loading image from [File].
-  factory ImagePainter.file(
-    File file, {
-    required Key key,
-    double? height,
-    double? width,
-    bool? scalable,
-    Widget? placeholderWidget,
-    List<Color>? colors,
-    Widget? brushIcon,
-    Widget? undoIcon,
-    Widget? clearAllIcon,
-    Widget? colorIcon,
-    PaintMode? initialPaintMode,
-    double? initialStrokeWidth,
-    Color? initialColor,
-    ValueChanged<PaintMode>? onPaintModeChanged,
-    ValueChanged<Color>? onColorChanged,
-    ValueChanged<double>? onStrokeWidthChanged,
-    TextDelegate? textDelegate,
-    bool? controlsAtTop,
-  }) {
+  factory ImagePainter.file(File file,
+      {required Key key,
+      double? height,
+      double? width,
+      bool? scalable,
+      Widget? placeholderWidget,
+      List<Color>? colors,
+      Widget? brushIcon,
+      Widget? undoIcon,
+      Widget? clearAllIcon,
+      Widget? colorIcon,
+      PaintMode? initialPaintMode,
+      double? initialStrokeWidth,
+      Color? initialColor,
+      ValueChanged<PaintMode>? onPaintModeChanged,
+      ValueChanged<Color>? onColorChanged,
+      ValueChanged<double>? onStrokeWidthChanged,
+      TextDelegate? textDelegate,
+      bool? controlsAtTop,
+      ControlsBuilder? controlsBuilder,
+      List<Widget> actions = const []}) {
     return ImagePainter._(
       key: key,
       file: file,
@@ -179,31 +187,33 @@ class ImagePainter extends StatefulWidget {
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
       controlsAtTop: controlsAtTop ?? true,
+      controlsBuilder: controlsBuilder,
+      actions: actions,
     );
   }
 
   ///Constructor for loading image from memory.
-  factory ImagePainter.memory(
-    Uint8List byteArray, {
-    required Key key,
-    double? height,
-    double? width,
-    bool? scalable,
-    Widget? placeholderWidget,
-    List<Color>? colors,
-    Widget? brushIcon,
-    Widget? undoIcon,
-    Widget? clearAllIcon,
-    Widget? colorIcon,
-    PaintMode? initialPaintMode,
-    double? initialStrokeWidth,
-    Color? initialColor,
-    ValueChanged<PaintMode>? onPaintModeChanged,
-    ValueChanged<Color>? onColorChanged,
-    ValueChanged<double>? onStrokeWidthChanged,
-    TextDelegate? textDelegate,
-    bool? controlsAtTop,
-  }) {
+  factory ImagePainter.memory(Uint8List byteArray,
+      {required Key key,
+      double? height,
+      double? width,
+      bool? scalable,
+      Widget? placeholderWidget,
+      List<Color>? colors,
+      Widget? brushIcon,
+      Widget? undoIcon,
+      Widget? clearAllIcon,
+      Widget? colorIcon,
+      PaintMode? initialPaintMode,
+      double? initialStrokeWidth,
+      Color? initialColor,
+      ValueChanged<PaintMode>? onPaintModeChanged,
+      ValueChanged<Color>? onColorChanged,
+      ValueChanged<double>? onStrokeWidthChanged,
+      TextDelegate? textDelegate,
+      bool? controlsAtTop,
+      ControlsBuilder? controlsBuilder,
+      List<Widget> actions = const []}) {
     return ImagePainter._(
       key: key,
       byteArray: byteArray,
@@ -224,26 +234,29 @@ class ImagePainter extends StatefulWidget {
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
       controlsAtTop: controlsAtTop ?? true,
+      controlsBuilder: controlsBuilder,
+      actions: actions,
     );
   }
 
   ///Constructor for signature painting.
-  factory ImagePainter.signature({
-    required Key key,
-    Color? signatureBgColor,
-    double? height,
-    double? width,
-    List<Color>? colors,
-    Widget? brushIcon,
-    Widget? undoIcon,
-    Widget? clearAllIcon,
-    Widget? colorIcon,
-    ValueChanged<PaintMode>? onPaintModeChanged,
-    ValueChanged<Color>? onColorChanged,
-    ValueChanged<double>? onStrokeWidthChanged,
-    TextDelegate? textDelegate,
-    bool? controlsAtTop,
-  }) {
+  factory ImagePainter.signature(
+      {required Key key,
+      Color? signatureBgColor,
+      double? height,
+      double? width,
+      List<Color>? colors,
+      Widget? brushIcon,
+      Widget? undoIcon,
+      Widget? clearAllIcon,
+      Widget? colorIcon,
+      ValueChanged<PaintMode>? onPaintModeChanged,
+      ValueChanged<Color>? onColorChanged,
+      ValueChanged<double>? onStrokeWidthChanged,
+      TextDelegate? textDelegate,
+      bool? controlsAtTop,
+      ControlsBuilder? controlsBuilder,
+      List<Widget> actions = const []}) {
     return ImagePainter._(
       key: key,
       height: height,
@@ -261,6 +274,8 @@ class ImagePainter extends StatefulWidget {
       onStrokeWidthChanged: onStrokeWidthChanged,
       textDelegate: textDelegate,
       controlsAtTop: controlsAtTop ?? true,
+      controlsBuilder: controlsBuilder,
+      actions: actions,
     );
   }
 
@@ -331,6 +346,12 @@ class ImagePainter extends StatefulWidget {
 
   //the text delegate
   final TextDelegate? textDelegate;
+
+  // controls
+  final ControlsBuilder? controlsBuilder;
+
+  // optional actions
+  final List<Widget> actions;
 
   @override
   ImagePainterState createState() => ImagePainterState();
@@ -783,6 +804,100 @@ class ImagePainterState extends State<ImagePainter> {
   }
 
   Widget _buildControls() {
+    if (widget.controlsBuilder != null) {
+      return widget.controlsBuilder!(Container(
+          padding: const EdgeInsets.all(4),
+          color: Colors.grey[200],
+          child: Row(
+            children: [
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (_, __) {
+                  final icon = paintModes(textDelegate)
+                      .firstWhere((item) => item.mode == _controller.mode)
+                      .icon;
+                  return PopupMenuButton(
+                    tooltip: textDelegate.changeMode,
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    icon: Icon(icon, color: Colors.grey[700]),
+                    itemBuilder: (_) => [_showOptionsRow()],
+                  );
+                },
+              ),
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (_, __) {
+                  return PopupMenuButton(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    tooltip: textDelegate.changeColor,
+                    icon: widget.colorIcon ??
+                        Container(
+                          padding: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.grey),
+                            color: _controller.color,
+                          ),
+                        ),
+                    itemBuilder: (_) => [_showColorPicker()],
+                  );
+                },
+              ),
+              PopupMenuButton(
+                tooltip: textDelegate.changeBrushSize,
+                shape: ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                icon: widget.brushIcon ??
+                    Icon(Icons.brush, color: Colors.grey[700]),
+                itemBuilder: (_) => [_showRangeSlider()],
+              ),
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (_, __) {
+                  if (_controller.canFill()) {
+                    return Row(
+                      children: [
+                        Checkbox.adaptive(
+                          value: _controller.shouldFill,
+                          onChanged: (val) {
+                            _controller.update(fill: val);
+                          },
+                        ),
+                        Text(
+                          'Fill',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        )
+                      ],
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+              // const Spacer(),
+              IconButton(
+                tooltip: textDelegate.undo,
+                icon: widget.undoIcon ??
+                    Icon(Icons.reply, color: Colors.grey[700]),
+                onPressed: () => _controller.undo(),
+              ),
+              IconButton(
+                tooltip: textDelegate.clearAllProgress,
+                icon: widget.clearAllIcon ??
+                    Icon(Icons.clear, color: Colors.grey[700]),
+                onPressed: () => _controller.clear(),
+              ),
+              const Expanded(child: SizedBox())
+            ]..addAll(widget.actions),
+          )));
+    }
+
     return Container(
       padding: const EdgeInsets.all(4),
       color: Colors.grey[200],
